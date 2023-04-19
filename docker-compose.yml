@@ -1,0 +1,26 @@
+version: "3"
+services:
+
+  otel-collector:
+    image: jaegertracing/opentelemetry-all-in-one
+    container_name: otel-collector
+    ports:
+      - "4317:55680" 
+      - "13133:13133"
+      - "16686:16686"
+
+  aspcore-service-a:
+    image: aspcore-service-a
+    build:
+      context: .
+      dockerfile: Service1/Dockerfile
+    ports:
+      - "5000:5000"
+
+  aspcore-service-b:
+    image: aspcore-service-b
+    build:
+      context: .
+      dockerfile: Service2/Dockerfile
+    ports:
+      - "6000:6000"
